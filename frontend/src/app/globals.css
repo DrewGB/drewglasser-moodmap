@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f5f5dc;
+  --primary: #096267;
+  --secondary: #008180;
+}
+
+@theme inline {
+  --color-brand-primary: #003B46;
+  --color-brand-accent: #008180;
+  --color-brand-accent-hover: #009999;
+  --color-brand-bg: #014D4E;
+  --color-brand-text: #f5f5dc;
+  --color-brand-muted: #E5E7EB;
+  --color-brand-card: #008180;
+  --color-brand-highlight: #AFCBFF;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#landing-main {
+  background: url('../../public/landing-bg-photo.png') no-repeat;
+  background-size: cover;
+  z-index: -99;
+}
+
+#image-shader {
+  z-index: -98;
+}
