@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime, timedelta
 
 import jwt
@@ -9,6 +10,11 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode = data.copy()
+
+    for key, value in to_encode.items():
+        if isinstance(value, uuid.UUID):
+            to_encode[key] = str(value)
+
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
