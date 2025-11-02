@@ -18,4 +18,3 @@ def create_user(*, session: SessionDep, body: UserCreate) -> Any:
 
     user = crud.create_user(session=session, user_to_create=body)
     return user
-
