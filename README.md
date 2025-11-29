@@ -5,7 +5,7 @@ An app where you can log your mood with a journal entry, and have your mood trac
 ## TODO:
 
 ### User Creates a Journal Entry
-* [ ] Create GET all entries route on backend API
+* [x] Create GET all entries route on backend API
 * [ ] Create POST to entries route on backend API
 * [ ] Create POST create route on Proxy API
 * [ ] Create frontend Dashboard "Create Entry" button
@@ -30,4 +30,5 @@ An app where you can log your mood with a journal entry, and have your mood trac
 * [ ] Create GET user moods route on Proxy API
 * [ ] Create frontend graph display of moods
 * [ ] Test graph displays user's mood over time
+
 
