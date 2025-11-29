@@ -58,6 +58,10 @@ def get_entry_by_id(*, session: Session, id: uuid.UUID) -> Any:
         return None
     return entry
 
+def get_all_entries(*, session: Session) -> Any:
+    entries = session.exec(select(Entry)).all()
+    return EntriesPublic(data=entries, count=len(entries))
+
 def get_all_entries_by_user_id(*, session: Session, user_id: uuid.UUID) -> Any:
     entries = session.exec(select(Entry).where(Entry.user_id == user_id).order_by(Entry.created_at.desc())).all()
     return EntriesPublic(data=entries, count=len(entries))
