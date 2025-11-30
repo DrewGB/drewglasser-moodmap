@@ -45,8 +45,10 @@ def delete_user(*, session: Session, user: User):
     session.delete(user)
     session.commit()
 
-def create_entry(*, session: Session, entry_to_create: EntryCreate) -> Entry | None:
+def create_entry(*, session: Session, user: User, entry_to_create: EntryCreate) -> Entry | None:
     entry = Entry(**entry_to_create.dict())
+    entry.user_id = user.id
+    entry.user = user
     session.add(entry)
     session.commit()
     session.refresh(entry)
