@@ -1,9 +1,11 @@
-
+import EntryForm from "@/components/EntryForm"
 
 export default function Create() {
     return (
-        <div>
-            <h1>Create</h1>
+        <div className="mt-1">
+            <div>
+                <EntryForm />
+            </div>
         </div>
     )
 }
