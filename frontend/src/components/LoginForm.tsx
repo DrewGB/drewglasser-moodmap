@@ -36,7 +36,7 @@ export default function LoginForm() {
             })
 
             if(res.ok){
-                // router.push("/dashboard")
+                router.push("/dashboard")
             } else {
                 setError("password", { type: "server", message: "Incorrect credentials"})
             }

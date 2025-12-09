@@ -1,6 +1,6 @@
 "use client"
 
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { entrySchema, EntrySchema } from "@/lib/schemas"
@@ -59,8 +59,13 @@ export default function EntryForm()
                     placeholder="Title"
                 />
                 {errors.title && (
-                    <p id="title-error" role="alert" className="text-sm text-gray-200 mt-1">
+                    <p id="title-error" role="alert" className="text-sm text-red-500 mt-1 ml-2">
                         {String(errors.title.message)}
+                    </p>
+                )}
+                {errors.body && (
+                    <p id="body-error" role="alert" className="text-sm text-red-500 mt-1 ml-2">
+                        {String(errors.body.message)}
                     </p>
                 )}
             </div>
@@ -77,7 +82,7 @@ export default function EntryForm()
                     placeholder="Mood (1-10)"
                 />
                 {errors.mood && (
-                    <p id="mood-error" role="alert" className="text-sm text-gray-200 mt-1">
+                    <p id="mood-error" role="alert" className="text-sm text-red-500 mt-1 ml-2">
                         {String(errors.mood.message)}
                     </p>
                 )}
@@ -92,15 +97,11 @@ export default function EntryForm()
                     aria-describedby={errors.body ? "body-error" : undefined}
                     >    
                 </textarea>
-                {errors.body && (
-                    <p id="body-error" role="alert" className="text-sm text-gray-200 mt-1">
-                        {String(errors.body.message)}
-                    </p>
-                )}
+                
             </div>
             <div className="row-span-1">
                 <button 
-                    className="mt-4 mx-1 py-2 text-2xl rounded bg-green-400 hover:bg-green-500 w-full h-full text-black" 
+                    className="mt-4 mx-1 py-2 text-2xl rounded bg-green-500 hover:bg-green-500 w-full h-full text-black" 
                     type="submit" 
                     disabled={isSubmitting}
                 >

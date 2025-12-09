@@ -19,7 +19,7 @@ export const loginSchema = z.object({
 export const entrySchema = z.object({
     body: z.string().min(1, { message: "There must be a description"}),
     title: z.string().min(1, { message: "There must be a title"}).max(24, { message: "Title cannot exceed 24 characters"}),
-    mood: z.int().min(1, { message: "Mood cannot be lower than 1"}).max(10, { message: "Mood cannot be greater than 10"})
+    mood: z.coerce.number().min(1, { message: "Mood cannot be lower than 1"}).max(10, { message: "Mood cannot be greater than 10"})
 });
 
 export type LoginSchema = z.infer<typeof loginSchema>;
