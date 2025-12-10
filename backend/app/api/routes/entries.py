@@ -9,8 +9,8 @@ from app.api.deps import SessionDep, CurrentUser
 router = APIRouter(prefix="/entries", tags=["entries"])
 
 @router.get("/", response_model=EntriesPublic)
-def get_all_entries(*, session: SessionDep) -> Any:
-    data = crud.get_all_entries(session=session)
+def get_user_entries(*, session: SessionDep, current_user: CurrentUser) -> Any:
+    data = crud.get_all_entries_by_user_id(session=session, user_id=current_user.id)
     return data
 
 @router.post("/", response_model=EntryPublic)

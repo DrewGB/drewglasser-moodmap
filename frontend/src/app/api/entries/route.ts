@@ -49,3 +49,32 @@ export async function POST(request: NextRequest){
     const newEntry = await res.json()
     return NextResponse.json(newEntry)
 }
+
+export async function GET(request: NextRequest){
+    const base = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000"
+
+    const cookieStore = await cookies()
+    const accessToken = cookieStore.get("access_token")?.value
+
+    if (!accessToken) {
+        return NextResponse.json(
+            { error: "Unauthorized" },
+            { status: 401 }
+        )
+    }
+
+    const res = await fetch(`${base}/entries/`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${accessToken}`,
+        }
+    })
+
+    if(!res.ok)
+    {
+        return NextResponse.json({ error: "Failed to get entries" }, { status: res.status })
+    }
+
+    const entries = await res.json()
+    return NextResponse.json(entries)
+}
