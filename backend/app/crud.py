@@ -54,9 +54,9 @@ def create_entry(*, session: Session, user: User, entry_to_create: EntryCreate) 
     session.refresh(entry)
     return entry
 
-def get_entry_by_id(*, session: Session, id: uuid.UUID) -> Any:
+def get_entry_by_id(*, session: Session, id: uuid.UUID, user_id: uuid.UUID) -> Any:
     entry = session.get(Entry, id)
-    if not entry:
+    if not entry or entry.user_id != user_id:
         return None
     return entry
 

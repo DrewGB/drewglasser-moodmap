@@ -53,9 +53,6 @@ export default function Dashboard() {
 
                 {error && <p className="text-red-500">{error}</p>}
                 {!entries && !error && <p>Loading your entries…</p>}
-                {entries && entries.count === 0 && (
-                    <p>You don&apos;t have any entries yet.</p>
-                )}
 
                 {entries && entries.count > 0 ? (
                     <div className="flex flex-col gap-2">
@@ -71,7 +68,7 @@ export default function Dashboard() {
                         ))}
                     </div>
                 ) : (
-                    <p>
+                    <p className="mx-2 text-xl">
                         You have no created entries. Create an entry to see your mood over
                         time!
                     </p>

@@ -20,10 +20,10 @@ An app where you can log your mood with a journal entry, and have your mood trac
 * [x] Test entries for a user displays in list (only their entries)
 
 ### User Views a Journal Entry
-* [ ] Create GET entry route on backend API
-* [ ] Create GET entry route on Proxy API
-* [ ] Create frontend entry page
-* [ ] Test entry displays when a user clicks a entry from the dashboard
+* [x] Create GET entry route on backend API
+* [x] Create GET entry route on Proxy API
+* [x] Create frontend entry page
+* [x] Test entry displays when a user clicks a entry from the dashboard
 
 ### User Views Their Mood Summary
 * [ ] Create GET user moods route on backend API

@@ -1,3 +1,4 @@
+import LogoutButton from "@/components/LogoutButton";
 import NavBar from "@/components/Navbar";
 import Link from "next/link";
 
@@ -16,26 +17,43 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <main className="grid grid-cols-6 min-h-dvh overflow-hidden">
         {/* Sidebar Navigation */}
         <div className="bg-brand-primary h-full flex flex-col w-full">
-          <ul className="w-full">
-            {/* Dashboard(Home) link */}
-            <Link href="/dashboard" className=" text-center">
-                <li className="w-full p-3 px-3 hover:bg-brand-bg">
-                    <span className="text-brand-text text-2xl">Home</span>
-                </li>
+        <ul className="w-full">
+          {/* Home */}
+          <li>
+            <Link
+              href="/dashboard"
+              className="block w-full p-3 text-center hover:bg-brand-bg"
+            >
+              <span className="text-brand-text text-2xl">Home</span>
             </Link>
+          </li>
 
-            {/* Create a new entry link */}
-            <Link href="/dashboard/create" className="text-center">
-                <li className="w-full p-3 px-3 hover:bg-brand-bg">
-                    <span className="text-brand-text text-2xl">Create Entry</span>
-                </li>
+          {/* Create entry */}
+          <li>
+            <Link
+              href="/dashboard/create"
+              className="block w-full p-3 text-center hover:bg-brand-bg"
+            >
+              <span className="text-brand-text text-2xl">Create Entry</span>
             </Link>
-            <Link href="/dashboard/list" className="text-center">
-                <li className="w-full p-3 px-3 hover:bg-brand-bg">
-                    <span className="text-brand-text text-2xl">All Entries</span>
-                </li>
+          </li>
+
+          {/* All entries */}
+          <li>
+            <Link
+              href="/dashboard/list"
+              className="block w-full p-3 text-center hover:bg-brand-bg"
+            >
+              <span className="text-brand-text text-2xl">All Entries</span>
             </Link>
-          </ul>
+          </li>
+
+          {/* Logout */}
+          <li className="">
+            <LogoutButton />
+          </li>
+        </ul>
+          
         </div>
         <div className="col-span-5 text-black">
           {children}

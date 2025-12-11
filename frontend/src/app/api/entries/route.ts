@@ -50,7 +50,7 @@ export async function POST(request: NextRequest){
     return NextResponse.json(newEntry)
 }
 
-export async function GET(request: NextRequest){
+export async function GET(){
     const base = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000"
 
     const cookieStore = await cookies()
