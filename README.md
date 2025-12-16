@@ -17,7 +17,7 @@ It’s built as a learning project to practice **Next.js**, **FastAPI**, and **S
   - Create mood entries with:
     - `mood` (1–10)
     - `title`
-    - optional `body`
+    - `body`
   - Entries are always scoped to the authenticated user  
     → you can only see your own data.
 
@@ -81,10 +81,10 @@ From the backend root:
 2. Install dependencies (example):
    ```bash
    pip install -r requirements.txt
-   uvicorn app.main:app --reload
+   fastapi dev app/main.py
    ```
 
-3. (Optional) Set your environment variables (see `.env.example`) for `DATABASE_URL`, etc.
+3. Set your environment variables
 
 4. By default, the backend runs on [http://localhost:8000](http://localhost:8000).
 
@@ -127,5 +127,6 @@ From the `src/` folder:
 ## License
 
 MIT
+
 
 
