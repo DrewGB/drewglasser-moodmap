@@ -110,16 +110,6 @@ From the `src/` folder:
 
 ---
 
-## Features
-
-- Secure authentication with JWT tokens
-- Simple mood journaling form and CRUD system
-- Recent entries and mood chart on the dashboard
-- Modern TypeScript/React stack with strict typing
-- Responsive and clean UI
-
----
-
 ## Screenshots
 
 ### Landing page
@@ -137,4 +127,5 @@ From the `src/` folder:
 ## License
 
 MIT
+
 
