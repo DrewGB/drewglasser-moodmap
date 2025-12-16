@@ -50,7 +50,7 @@ export default function EntryForm()
         <form className="h-dvh w-full" onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="grid">
                 <input
-                    className="mt-1 mx-1 p-2 border-2 text-2xl"
+                    className="mt-1 mx-1 p-1 border-2 text-xl"
                     type="text"
                     id="title" 
                     {...register("title")} 
@@ -71,7 +71,7 @@ export default function EntryForm()
             </div>
             <div className="grid">
                 <input 
-                    className="mt-1 mx-1 p-2 border-2 text-2xl"
+                    className="mt-1 mx-1 p-1 border-2 text-xl"
                     type="number" 
                     min="1" 
                     max="10"
@@ -87,9 +87,9 @@ export default function EntryForm()
                     </p>
                 )}
             </div>
-            <div className="grid h-5/6">
+            <div className="grid h-4/6">
                 <textarea 
-                    className="mt-1 mx-1 border-2 h-full text-2xl" 
+                    className="mt-1 mx-1 p-1 border-2 h-full text-xl" 
                     placeholder="Description" 
                     id="body" 
                     {...register("body")} 
@@ -97,11 +97,10 @@ export default function EntryForm()
                     aria-describedby={errors.body ? "body-error" : undefined}
                     >    
                 </textarea>
-                
             </div>
             <div className="row-span-1">
                 <button 
-                    className="mt-4 mx-1 py-2 text-2xl rounded bg-green-500 hover:bg-green-500 w-full h-full text-black" 
+                    className="mt-4 mx-1 py-2 text-2xl rounded bg-green-500 hover:bg-green-500 w-full h-full text-black cursor-pointer" 
                     type="submit" 
                     disabled={isSubmitting}
                 >

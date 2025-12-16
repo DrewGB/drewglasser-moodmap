@@ -1,34 +1,140 @@
 # MoodMap
 
-An app where you can log your mood with a journal entry, and have your mood tracked over time.
+MoodMap is a small full-stack web app where users can log how they’re feeling with short journal entries and see their mood trends over time.
 
-## TODO:
+It’s built as a learning project to practice **Next.js**, **FastAPI**, and **SQLModel**, with a focus on clean API design, auth, and a simple but real UI.
 
-### User Creates a Journal Entry
-* [x] Create GET all entries route on backend API
-* [x] Create POST to entries route on backend API
-* [x] Create POST create route on Proxy API
-* [x] Create frontend Dashboard "Create Entry" button
-* [x] Create /create page on frontend with form
-* [x] Create ZOD schemas and hook up form functionality
-* [x] Test form is functional and returns new journal entry
+---
 
-### User Views Their Dashboard
-* [x] Create GET user entries route on backend API
-* [x] Create GET user entries route on Proxy API
-* [x] Create frontend dashboard list of entries
-* [x] Test entries for a user displays in list (only their entries)
+## Features
 
-### User Views a Journal Entry
-* [x] Create GET entry route on backend API
-* [x] Create GET entry route on Proxy API
-* [x] Create frontend entry page
-* [x] Test entry displays when a user clicks a entry from the dashboard
+- **Account system**
+  - User registration & login
+  - Passwords stored as secure bcrypt hashes
+  - JWT-based authentication and authorization
 
-### User Views Their Mood Summary
-* [ ] Create GET user moods route on backend API
-* [ ] Create GET user moods route on Proxy API
-* [ ] Create frontend graph display of moods
-* [ ] Test graph displays user's mood over time
+- **Journal entries**
+  - Create mood entries with:
+    - `mood` (1–10)
+    - `title`
+    - optional `body`
+  - Entries are always scoped to the authenticated user  
+    → you can only see your own data.
 
+- **Dashboard**
+  - List of all your entries, ordered by most recent
+  - Click through to view full details for a single entry
+
+- **Mood over time**
+  - Dashboard fetches all of your entries and transforms them into `{ date, mood }` points
+  - Renders a **mood-over-time chart** that updates when new entries are created
+
+---
+
+## Tech Stack
+
+**Frontend**
+
+- Next.js (App Router)
+- TypeScript
+- Zod for schema validation
+- Fetching via a Next.js “proxy API” that talks to the backend
+
+**Backend**
+
+- FastAPI
+- SQLModel + SQLAlchemy
+- JWT auth (PyJWT)
+- Password hashing via `passlib` (bcrypt)
+- Relational database via `DATABASE_URL` (tested locally with a SQL database)
+
+---
+
+## Architecture Overview
+
+- **Backend (`app/`)**
+  - `app/main.py` – FastAPI application entrypoint
+  - `app/api/` – routers (`/login`, `/users`, `/entries`, etc.)
+  - `app/models.py` – SQLModel ORM models and Pydantic response models
+  - `app/crud.py` – data access helpers for users and entries
+  - `app/core/` – configuration, security (JWT, hashing), and DB setup
+
+- **Frontend (`src/`)**
+  - Next.js pages/routes for:
+    - Dashboard
+    - Create entry
+    - View entry
+  - Forms wired with Zod schemas and type-safe client/server interaction
+  - Dashboard aggregates entries into data points for the mood chart
+
+---
+
+## Running Locally
+
+> This project is currently intended to run locally (not deployed).
+
+### 1. Backend (FastAPI)
+
+From the backend root:
+
+1. Create and activate a virtualenv (optional but recommended)
+2. Install dependencies (example):
+   ```bash
+   pip install -r requirements.txt
+   uvicorn app.main:app --reload
+   ```
+
+3. (Optional) Set your environment variables (see `.env.example`) for `DATABASE_URL`, etc.
+
+4. By default, the backend runs on [http://localhost:8000](http://localhost:8000).
+
+---
+
+### 2. Frontend (Next.js)
+
+From the `src/` folder:
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+3. The frontend will run on [http://localhost:3000](http://localhost:3000).
+
+---
+
+## Features
+
+- Secure authentication with JWT tokens
+- Simple mood journaling form and CRUD system
+- Recent entries and mood chart on the dashboard
+- Modern TypeScript/React stack with strict typing
+- Responsive and clean UI
+
+---
+
+## Screenshots
+
+### Landing page
+![Landing page with login form](docs/landing.png)
+
+### Dashboard
+![Dashboard showing recent entries and mood-over-time chart](docs/dashboard.png)
+
+### Create Entry
+![Create entry page with title, mood, and description](docs/create-entry.png)
+
+
+---
+
+## License
+
+MIT
 

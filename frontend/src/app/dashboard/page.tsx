@@ -1,84 +1,144 @@
-"use client"
+"use client";
 
+import { MoodChart } from "@/components/MoodChart";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type Entry = {
-    id: string;
-    title: string;
-    mood: number;
-    body: string;
-    created_at: string;
-    updated_at: string;
-}
+  id: string;
+  title: string;
+  mood: number;
+  body: string;
+  created_at: string;
+  updated_at: string;
+};
 
 type Entries = {
-    data: Entry[];
-    count: number;
-}
+  data: Entry[];
+  count: number;
+};
 
 export default function Dashboard() {
-    const [entries, setEntries] = useState<Entries>();
-    const [error, setError] = useState<string | null>(null);
+  const [entries, setEntries] = useState<Entries>();
+  const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const res = await fetch("/api/entries", {
-                    method: "GET"
-                });
-        
-                if (!res.ok) {
-                    setError("Failed to load entries");
-                    return;
-                }
-        
-                const json: Entries = await res.json();
-                setEntries(json);
-            } catch(err){
-                console.error(err);
-                setError("Something went wrong while loading your entries");
-            }
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("/api/entries", {
+          method: "GET",
+        });
 
-        })();
-    }, []);
+        if (!res.ok) {
+          setError("Failed to load entries");
+          return;
+        }
 
-    return (
-        <div className="min-h-screen m-3 p-2 bg-slate-200 border rounded-2xl flex flex-col">
-            <h1 className="ml-2 mt-2 text-3xl">Welcome to Your Dashboard</h1>
+        const json: Entries = await res.json();
+        setEntries(json);
+      } catch (err) {
+        console.error(err);
+        setError("Something went wrong while loading your entries");
+      }
+    })();
+  }, []);
 
-            <div className="flex-1 flex gap-8 p-4">
-                <div className="flex-1 border rounded-2xl">
-                <h2 className="text-xl m-2">Recent Journal Entries</h2>
+  return (
+    <div className="min-h-screen m-4 p-6 bg-slate-100 border border-slate-200 rounded-2xl shadow-lg flex flex-col gap-6">
+      <header className="space-y-1">
+        <h1 className="text-3xl font-semibold">Welcome to Your Dashboard</h1>
+        <p className="text-sm text-slate-600">
+          Review your recent entries and see how your mood has changed over time.
+        </p>
+      </header>
 
-                {error && <p className="text-red-500">{error}</p>}
-                {!entries && !error && <p>Loading your entries…</p>}
+      <main className="flex-1 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {/* Recent entries card */}
+        <section className="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200">
+            <h2 className="text-lg font-semibold">Recent Journal Entries</h2>
+            <Link
+              href="/dashboard/entries"
+              className="text-sm text-blue-600 hover:underline"
+            >
+              View all
+            </Link>
+          </div>
 
-                {entries && entries.count > 0 ? (
-                    <div className="flex flex-col gap-2">
-                        {entries.data.slice(0, 10).map((e) => (
-                            <Link
-                            key={e.id}
-                            href={`/dashboard/entries/${e.id}`}
-                            className="block border rounded p-2 mt-2 ml-2 mr-2 hover:bg-gray-300"
-                            >
-                            <strong>{e.title || "(Untitled)"}</strong> — Mood: {e.mood} —{" "}
+          <div className="p-4 space-y-3 flex-1">
+            {error && (
+              <p className="text-sm text-red-500">
+                {error}
+              </p>
+            )}
+
+            {!error && !entries && (
+              <p className="text-sm text-slate-500">
+                Loading your entries…
+              </p>
+            )}
+
+            {entries && entries.count > 0 && (
+              <div className="space-y-2 max-h-[26rem] overflow-y-auto pr-1">
+                {entries.data
+                  .slice()
+                  .sort(
+                    (a, b) =>
+                      new Date(b.created_at).getTime() -
+                      new Date(a.created_at).getTime()
+                  )
+                  .slice(0, 10)
+                  .map((e) => (
+                    <Link
+                      key={e.id}
+                      href={`/dashboard/entries/${e.id}`}
+                      className="block rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 hover:bg-slate-300 transition-colors"
+                    >
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex-1">
+                          <p className="font-semibold">
+                            {e.title || "(Untitled)"}
+                          </p>
+                          <p className="text-xs text-slate-500">
                             {new Date(e.created_at).toLocaleDateString()}
-                            </Link>
-                        ))}
-                    </div>
-                ) : (
-                    <p className="mx-2 text-xl">
-                        You have no created entries. Create an entry to see your mood over
-                        time!
-                    </p>
-                )}
-                </div>
+                          </p>
+                        </div>
+                        <div className="text-sm font-semibold">
+                          Mood:{" "}
+                          <span className="text-purple-700">
+                            {e.mood}
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+              </div>
+            )}
 
-                <div className="flex-1 border rounded-2xl flex items-center justify-center">
-                    <p className="text-4xl"><strong>Insert Graph Here</strong></p>
-                </div>
+            {entries && entries.count === 0 && !error && (
+              <p className="text-sm text-slate-500">
+                You haven&apos;t created any entries yet. Start journaling to
+                see your mood trends.
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* Mood chart card */}
+        <section className="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col p-4">
+          <h2 className="text-lg font-semibold mb-2">Mood Over Time</h2>
+
+          {entries && entries.count > 0 ? (
+            <div className="flex-1 min-h-[260px]">
+              <MoodChart entries={entries.data} />
             </div>
-        </div>
-    )
+          ) : (
+            <p className="text-sm text-slate-500">
+              Add a few entries to see your mood visualized here.
+            </p>
+          )}
+        </section>
+      </main>
+    </div>
+  );
 }

@@ -14,7 +14,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </ul>
       </nav>
       <div className="p-11 bg-white"></div>
-      <main className="grid grid-cols-6 min-h-dvh overflow-hidden">
+      <main className="grid grid-cols-6 min-h-dvh">
         {/* Sidebar Navigation */}
         <div className="bg-brand-primary h-full flex flex-col w-full">
         <ul className="w-full">
@@ -41,7 +41,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           {/* All entries */}
           <li>
             <Link
-              href="/dashboard/list"
+              href="/dashboard/entries"
               className="block w-full p-3 text-center hover:bg-brand-bg"
             >
               <span className="text-brand-text text-2xl">All Entries</span>
